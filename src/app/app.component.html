@@ -35,6 +35,18 @@
               [value]="gender">{{ gender }}
           </label>
         </div>
+        <div formArrayName="hobbies">
+          <h4>Your hobbies</h4>
+          <button class="btn btn-default" type="button"
+          (click)="onAddHobby()"
+          >Add Hobby</button>
+          <div class="form-group"
+          *ngFor="let control of controls; let i = index">
+          <!-- *ngFor="let control of this.signupForm.get('hobbies').controls; let i = index"> -->
+          <!-- we need property binding for formControlName because we are passing a local variable, not a string -->
+          <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
         <span 
         *ngIf="!signupForm.valid && signupForm.touched"
         class="help-block">Info missing or invalid</span>
