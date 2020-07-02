@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     this.signupForm = new FormGroup({
       'userData': new FormGroup({
         // when this.forbiddenNames is called it will not refer to the class as intended, that's why we need to bind it
-        'username': new FormControl(null, [Validators.required, this.forbiddenNames]),
+        'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
         'email': new FormControl(null, [Validators.required, Validators.email])
       }),
       // here we add the controlls, which are key-value pairs
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   forbiddenNames(control: FormControl): {[s: string]: boolean} {
     // if it is not found in the array
     if (this.forbiddenUsernames.indexOf(control.value) !== -1) {
-      return {'name is forbidden': true}
+      return {'nameForbidden': true}
     }
     // this would be incorrect:
     // return {'name is forbidden': false}, return null instead, or return nothing
