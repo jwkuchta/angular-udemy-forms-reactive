@@ -1,30 +1,47 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form>
+      <form [formGroup]='signupForm' (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">Username</label>
           <input
             type="text"
             id="username"
+            formControlName="username"
             class="form-control">
+          <span 
+          *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched"
+          class="help-block">Please enter a valid username</span>
         </div>
         <div class="form-group">
           <label for="email">email</label>
           <input
             type="text"
             id="email"
+            formControlName="email"
             class="form-control">
+          <span
+          *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" 
+          class="help-block">Please enter a valid email</span>
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
             <input
               type="radio"
+              formControlName="gender"
               [value]="gender">{{ gender }}
           </label>
         </div>
+        <span 
+        *ngIf="!signupForm.valid && signupForm.touched"
+        class="help-block">Info missing or invalid</span>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>
 </div>
+
+<!-- [formGroup] to synchronize with the form me created programmactically in Typescript -->
+<!-- formControlName - what name does this part of the form have in my Typescript form -->
+<!-- required won't work here because we are not configuring the form here
+but rather synchronizing it with the Typescript file. We add "Validators" in Typescript form object instead -->
