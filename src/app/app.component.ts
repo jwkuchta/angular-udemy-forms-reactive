@@ -25,6 +25,10 @@ export class AppComponent implements OnInit {
       'gender': new FormControl('other'),
       'hobbies': new FormArray([])
     })
+    this.signupForm.valueChanges.subscribe(value => console.log(value))
+    this.signupForm.statusChanges.subscribe(status => console.log(status))
+    // we also have access to setValue() and patchValue() in reactive forms
+    this.signupForm.reset()
   }
 
   // we don't need to get a form via local reference like we did in tda 
